@@ -1,13 +1,15 @@
 import random
 
-menu = ['hamburguer', 'hot dog', 'broccoli', 'spaghetti', 'portuguese', ]
+places_to_eat = [
+    'eskilos', 'cristovao', 'japanese', 'sativa', 'portuguese',
+]
 
 option = None
 
 counter = 0
-while option != 'broccoli':
-    option = random.choice(menu)
-    if option == 'broccoli':
+while option != 'eskilos':
+    option = random.choice(places_to_eat)
+    if option == 'eskilos':
         break
     counter += 1
     if option == 'portuguese':
