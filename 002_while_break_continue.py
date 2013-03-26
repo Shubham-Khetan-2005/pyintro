@@ -13,7 +13,7 @@ while option != 'eskilos':
         break
     counter += 1
     if option == 'portuguese':
-        print '*** Are you crazy? "Portuguese" is not a valid option! ***'
+        print 'Are you crazy? "Portuguese" is not a valid option!'
         continue
     print('Thinking of %s...' % option)
 
