@@ -7,6 +7,6 @@ for x in range(10):
 for number in numbers:
     print 'Checking number: %d' % number
     if number < 0:
-        raise ValueError('Invalid number!')
+        break
 else:
     print 'You are lucky. All numbers are positive.'
