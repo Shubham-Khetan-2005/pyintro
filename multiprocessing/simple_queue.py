@@ -1,6 +1,7 @@
+import random
+import logging
 import threading
 from Queue import Queue
-import logging
 
 
 logging.basicConfig(
@@ -15,10 +16,10 @@ class Producer(threading.Thread):
         self.queue = queue
 
     def run(self):
-        for x in range(100):
-            logging.debug('%s producing %s' % (self.getName(), x))
-            self.queue.put(x)
-        logging.debug('%s done' % self.getName())
+        for item in range(random.randint(5, 20)):
+            logging.debug('producing %s' % item)
+            self.queue.put(item)
+        logging.debug('done')
 
 
 class Consumer(threading.Thread):
@@ -29,23 +30,31 @@ class Consumer(threading.Thread):
     def run(self):
         while True:
             item = self.queue.get()
-            logging.debug('%s consuming %s' % (self.getName(), item))
+            logging.debug('consuming %s' % item)
             self.queue.task_done()
 
 
 queue = Queue()
 
-producers = [Producer(queue) for x in range(2)]
-consumers = [Consumer(queue) for x in range(6)]
+producers = [Producer(queue) for x in range(10)]
+consumers = [Consumer(queue) for x in range(5)]
 
 counter = 1
 for producer in producers:
+    producer.setName('producer #%02d' % counter)
     producer.setDaemon(True)
     producer.start()
+    counter += 1
 
+counter = 1
 for consumer in consumers:
+    consumer.setName('consumer #%02d' % counter)
     consumer.setDaemon(True)
     consumer.start()
+    counter += 1
+
+for producer in producers:
+    producer.join()
 
 queue.join()
 
